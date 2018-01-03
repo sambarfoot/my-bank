@@ -28,6 +28,20 @@ public class Customer {
     public int getNumberOfAccounts() {
         return accounts.size();
     }
+    
+    public Account getAccount(int accountNumber) {
+    	return this.accounts.get(accountNumber-1);
+    }
+    
+    public void transfer(Account accountFrom, Account accountTo, double amount) {
+    	accountFrom.withdraw(amount);
+    	accountTo.deposit(amount);
+    }
+    
+    public void transfer(int accountFrom, int accountTo, double amount) {
+    	this.accounts.get(accountFrom-1).withdraw(amount);
+    	this.accounts.get(accountTo-1).deposit(amount);
+    }
 
     public double totalInterestEarned() {
         double total = 0;

@@ -12,9 +12,11 @@ public interface Account {
 	
 	void withdraw(double amount);
 	
-	double sumTransactions();
+	void transfer(Account account, double amount);
 	
 	double interestEarned();
+	
+	double sumTransactions();
 	
 	String printAccountType(); 
 }

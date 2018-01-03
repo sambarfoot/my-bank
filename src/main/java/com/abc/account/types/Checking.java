@@ -1,20 +1,21 @@
 package com.abc.account.types;
 
-import com.abc.Transaction;
 import com.abc.account.AccountAbstract;
-import java.util.ArrayList;
+import com.abc.constants.Constants;
 
 public class Checking extends AccountAbstract {
-
-	public Checking() {
-		 this.transactions = new ArrayList<Transaction>();
-	}
-	
+		
 	@Override
 	public double interestEarned() {
 		double amount = sumTransactions();
-		return amount * 0.001;
+		return calculateCompoundInterest(amount, 0.001);
     }
+
+// old interest calculation
+//	public double interestEarned() {
+//		double amount = sumTransactions();
+//		return amount * 0.001;
+//    }
 	
 	@Override
 	public String printAccountType() {

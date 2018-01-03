@@ -3,6 +3,8 @@ package com.abc;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.abc.constants.Constants;
+
 public class Transaction {
     public final double amount;
 
@@ -27,14 +29,15 @@ public class Transaction {
 		this.transactionDate = transactionDate;
 	}
 	
-	public boolean wasLessThan10Days() {
-		return amount>0 && transactionGreaterThan10DaysAgo();
+	public boolean wasWithdrawlAndLessThan10Days() {
+		return amount>0 && transactionDateLessThan10DaysAgo();
     }
 	
-	private boolean transactionGreaterThan10DaysAgo() {
+	private boolean transactionDateLessThan10DaysAgo() {
 		// date in milliseconds
 		long diff = Calendar.getInstance().getTime().getTime() - this.transactionDate.getTime();
-		return diff >= (10 * 24 * 60 * 60 * 1000);
+		
+		return diff <= Constants.TEN_DAYS_IN_MILLISECONDS;
 	}
 	    
 }
