@@ -1,9 +1,10 @@
-package com.abc;
+package com.abc.functional;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+import com.abc.Customer;
 import com.abc.account.Account;
 import com.abc.account.types.Checking;
 import com.abc.account.types.MaxiSavings;

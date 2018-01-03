@@ -1,10 +1,12 @@
-package com.abc;
+package com.abc.functional;
 
 import static org.junit.Assert.*;
 
 import java.util.Calendar;
 
 import org.junit.Test;
+
+import com.abc.Transaction;
 
 public class TransactionTest {
 
@@ -28,7 +30,7 @@ public class TransactionTest {
     	Transaction t = new Transaction(5);
     	
     	Calendar calendar = Calendar.getInstance();
-    	calendar.add(Calendar.DATE, -5);  	
+    	calendar.add(Calendar.DATE, -5);
     	
     	t.setTransactionDate(calendar.getTime());
     	assertTrue(t.wasWithdrawlAndLessThan10Days());

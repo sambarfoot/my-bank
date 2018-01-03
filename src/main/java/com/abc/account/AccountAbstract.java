@@ -33,7 +33,9 @@ public abstract class AccountAbstract implements Account {
 	    if (amount <= 0) {
 	        throw new IllegalArgumentException("amount must be greater than zero");
 	    } else {
-	        transactions.add(new Transaction(-amount));
+	    	if (sumTransactions()-amount < 0) 
+	    		throw new IllegalArgumentException("account cannot go overdrawn");
+	    	transactions.add(new Transaction(-amount));
 	    }
 	}
 	
@@ -54,8 +56,8 @@ public abstract class AccountAbstract implements Account {
 	protected boolean hadWithdrawlInTheLast10Days() {
 		for (Transaction t: transactions)
 			if(t.wasWithdrawlAndLessThan10Days())
-				return false;
-		return true;
+				return true;
+		return false;
 	}
 	
 	protected double calculateCompoundInterest(double amount, double rate) {
