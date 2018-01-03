@@ -4,18 +4,14 @@ import com.abc.account.AccountAbstract;
 import com.abc.constants.Constants;
 
 public class Checking extends AccountAbstract {
-		
+	
+	/**
+	 * **Checking accounts** have a flat rate of 0.1%
+	 */
 	@Override
 	public double interestEarned() {
-		double amount = sumTransactions();
-		return calculateCompoundInterest(amount, 0.001);
+		return calculateCompoundInterest(getBalance(), 0.001);
     }
-
-// old interest calculation
-//	public double interestEarned() {
-//		double amount = sumTransactions();
-//		return amount * 0.001;
-//    }
 	
 	@Override
 	public String printAccountType() {

@@ -2,6 +2,7 @@ package com.abc.account.types;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.List;
 
@@ -30,14 +31,17 @@ public class MaxiSavingsTest {
 	}
 	
 	@Test
-	public void testInterestEarnedTransactionover10Days() {
+	public void testInterestEarnedTransactionover10Days() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		account.deposit(300);
 		List<Transaction> transactions = account.getTransactions();
 		Transaction transaction = transactions.get(0);
 		
 		Calendar calendar = Calendar.getInstance();
     	calendar.add(Calendar.DATE, -15);  	
-		transaction.setTransactionDate(calendar.getTime());
+		
+    	Field field = Transaction.class.getDeclaredField("transactionDate");
+    	field.setAccessible(true);
+		field.set(transaction, calendar.getTime());
 		
 		double interest = account.interestEarned();
 		assertEquals(15.380248940234196, interest, DOUBLE_DELTA);
@@ -47,5 +51,5 @@ public class MaxiSavingsTest {
 	public void testPrintAccountType() {
 		assertEquals("Maxi Savings Account\n", account.printAccountType());
 	}
-
+	
 }

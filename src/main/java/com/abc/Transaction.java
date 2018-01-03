@@ -5,34 +5,43 @@ import java.util.Date;
 
 import com.abc.constants.Constants;
 
+/**
+ * @author Samuel.Barfoot
+ *
+ */
 public class Transaction {
-    public final double amount;
-
+    private final double amount;
     private Date transactionDate;
+    
+    /**
+	 * @return the amount
+	 */
+	public double getAmount() {
+		return amount;
+	}
 
     public Transaction(double amount) {
         this.amount = amount;
-        this.setTransactionDate(Calendar.getInstance().getTime());
+        this.transactionDate = Calendar.getInstance().getTime();
     }
 
 	/**
-	 * @return the transactionDate
+	 * @return the transaction date
 	 */
 	public Date getTransactionDate() {
 		return transactionDate;
 	}
-
-	/**
-	 * @param transactionDate the transactionDate to set
-	 */
-	public void setTransactionDate(Date transactionDate) {
-		this.transactionDate = transactionDate;
-	}
 	
-	public boolean wasWithdrawlAndLessThan10Days() {
+	/**
+	 * @return true if the transaction took place in the last 10 days and it was a withdrawal
+	 */
+	public boolean wasWithdrawnFromWithinLast10Days() {
 		return amount>0 && transactionDateLessThan10DaysAgo();
     }
 	
+	/**
+	 * @return true if the transaction took place in the last 10 days
+	 */
 	private boolean transactionDateLessThan10DaysAgo() {
 		// date in milliseconds
 		long diff = Calendar.getInstance().getTime().getTime() - this.transactionDate.getTime();

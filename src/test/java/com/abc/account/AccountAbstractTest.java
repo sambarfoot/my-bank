@@ -54,14 +54,14 @@ public class AccountAbstractTest {
 	public void testDeposit() {
 		List<Transaction> transactions = account.getTransactions();
 		Transaction deposit = transactions.get(0);
-		assertEquals(400, deposit.amount, DOUBLE_DELTA);
+		assertEquals(400, deposit.getAmount(), DOUBLE_DELTA);
 	}
 
 	@Test
 	public void testWithdraw() {
 		List<Transaction> transactions = account.getTransactions();
 		Transaction withdraw = transactions.get(1);
-		assertEquals(-200, withdraw.amount, DOUBLE_DELTA);
+		assertEquals(-200, withdraw.getAmount(), DOUBLE_DELTA);
 	}
 
 	@Test
@@ -81,19 +81,14 @@ public class AccountAbstractTest {
 		
 		account.transfer(account2, 100);
 		
-		assertEquals(100, account2.sumTransactions(), DOUBLE_DELTA);
+		assertEquals(100, account2.getBalance(), DOUBLE_DELTA);
 		
 		account.deposit(100);
 	}
 
 	@Test
-	public void testSumTransactions() {
-		assertEquals(200, account.sumTransactions(), DOUBLE_DELTA);
-	}
-
-	@Test
 	public void testHadWithdrawlInTheLast10Days() {
-		assertTrue(account.hadWithdrawlInTheLast10Days());
+		assertTrue(account.hadWithdrawalInTheLast10Days());
 	}
 
 	@Test
@@ -128,6 +123,26 @@ public class AccountAbstractTest {
 		boolean threw = false;
 		try {
 			account.withdraw(-1);
+		} catch (IllegalArgumentException e) {
+			threw = true;
+		}
+		assertTrue(threw);
+	}
+	
+	public void testNonCurrencyDeposit() {
+		boolean threw = false;
+		try {
+			account.withdraw(10.002);
+		} catch (IllegalArgumentException e) {
+			threw = true;
+		}
+		assertTrue(threw);
+	}
+	
+	public void testNonCurrencyWithdraw() {
+		boolean threw = false;
+		try {
+			account.withdraw(10.002);
 		} catch (IllegalArgumentException e) {
 			threw = true;
 		}
