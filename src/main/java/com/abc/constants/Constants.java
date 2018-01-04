@@ -1,7 +1,5 @@
 package com.abc.constants;
 
-import java.text.DecimalFormat;
-
 public class Constants {
 
 	public static final String ERROR_AMOUNT_LESS_ZERO = "amount must be greater than zero";

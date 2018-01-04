@@ -1,7 +1,6 @@
 package com.abc.account.types;
 
 import com.abc.account.AccountAbstract;
-import com.abc.constants.Constants;
 
 public class Savings extends AccountAbstract {
 	
